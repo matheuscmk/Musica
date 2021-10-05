@@ -9,34 +9,50 @@ export default function App() {
 
   const [musicas,setarMusicas] = useState([
     {
-      nome: 'Sweet child of mine',
-      artista: 'Guns N Roses',
-      playing: true,
-      file: ''
+      nome: 'Twist and shout',
+      artista: 'The Beatles',
+      playing: false,
+      file: require('./Musica.mp3')
     },
     {
-      nome: 'Welcome to the jungle',
-      artista: 'Guns N Roses',
+      nome: 'Musica 2',
+      artista: 'Musica 2',
       playing: false,
-      file: ''
+      file: require('./Musica.mp3')
     },
     {
-      nome: 'This Love',
-      artista: 'Maroon 5',
+      nome: 'Musica 3',
+      artista: 'Musica 3',
       playing: false,
-      file: ''
+      file: require('./Musica.mp3')
     }
   ]);
 
-  const changeMusic = (id) =>{
+  const changeMusic = async (id) =>{
+    let curFile = null;
     let newMusics = musicas.filter(function(val,k){
         if(id == k){
           musicas[id].playing = true;
+          curFile = musicas[k].file;
         }else{
           musicas[k].playing = false;
         }
         return musicas[k];
     })
+
+if(audio != null){
+  audio.unloadAsync();
+}
+
+    let curAudio = new Audio.Sound();
+
+    try{
+        await curAudio.loadAsync(curFile);
+        await curAudio.playAsync();
+    }catch(error){
+
+    }
+    setarAudio(curAudio);
     setarMusicas(newMusics);
   }
 
